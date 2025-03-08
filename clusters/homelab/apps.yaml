@@ -8,7 +8,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./homelab/app
+  path: ./homelab/app/base
   prune: true
   sourceRef:
     kind: GitRepository
