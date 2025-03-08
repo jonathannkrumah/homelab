@@ -7,7 +7,7 @@ metadata:
   name: apps
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 11m0s
   path: ./homelab/app/base
   prune: true
   sourceRef:
