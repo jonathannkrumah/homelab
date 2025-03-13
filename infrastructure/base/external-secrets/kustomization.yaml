@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   # Flux-Kustomizations
   - ./ks.yaml
+  - ./external-secrets.yaml
