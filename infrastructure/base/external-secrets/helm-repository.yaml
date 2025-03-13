@@ -1,9 +1,0 @@
-# infrastructure/base/external-secrets/helm-repository.yaml
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: external-secrets
-  namespace: flux-system
-spec:
-  interval: 5m
-  url: https://external-secrets.github.io/kubernetes-external-secrets/
