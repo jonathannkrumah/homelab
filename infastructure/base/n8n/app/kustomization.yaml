@@ -1,4 +1,0 @@
-resources:
-  - "helmrelease.yaml"
-  - "externalsecret.yaml"
-
