@@ -1,0 +1,4 @@
+resources:
+  - "./nginx"
+  - "./n8n"
+  - external-secret/
