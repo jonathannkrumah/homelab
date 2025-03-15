@@ -4,6 +4,5 @@ metadata:
   name: external-secrets
   namespace: external-secrets
 spec:
-  url: oci://ghcr.io/nginxinc/charts
-  type: oci
-  interval: 5m
+  url: oci://ghcr.io/external-secrets/helm-charts/external-secrets
+  interval: 5m  # Interval for checking updates to the repository

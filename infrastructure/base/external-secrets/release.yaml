@@ -4,17 +4,15 @@ metadata:
   name: external-secrets
   namespace: external-secrets
 spec:
-  chart: 
-    spec: 
+  chart:
+    spec:
       chart: external-secrets
-      version: "0.14.4"
-      interval: 5h # this is for checking of a new chart
-      sourceRef: 
+      version: "0.14.4"  # Specify the version you want to install
+      sourceRef:
         kind: HelmRepository
-        name: nginx
-  releaseName: external-secrets
-  targetNamespace: external-secrets
-  interval: 1h #this is fo drifting of the helm created resources
+        name: external-secrets  # This should match the name of your HelmRepository
+        namespace: external-secrets  # Namespace where the HelmRepository is created
+  interval: 1h  # Interval for reconciling the HelmRelease
+  targetNamespace: external-secrets  # Namespace where the chart will be installed
   values:
-      installCRDs: true
-
+    installCRDs: true  # Install CRDs
