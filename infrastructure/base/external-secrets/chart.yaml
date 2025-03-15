@@ -1,13 +1,12 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmChart
 metadata:
-  name: external-secrets
+  name: external-secrets-chart
   namespace: external-secrets
 spec:
   chart: external-secrets
-  version: "0.14.4"
-  interval: 5h
-  sourceRef: 
-    kind: HelmRepository
+  reconcileStrategy: ChartVersion
+  sourceRef:
+    kind: OCIRepository
     name: external-secrets
-    
+  interval: 1h

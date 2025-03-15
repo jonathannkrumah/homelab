@@ -1,10 +1,11 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: external-secrets
   namespace: external-secrets
 spec:
-  url: oci://ghcr.io/external-secrets/helm-charts/external-secrets
-  interval: 5m
-  secretRef:
-    name: ghcr-auth  # Reference the Secret created earlier
+  interval: 1h
+  url: oci://ghcr.io/external-secrets/charts
+  ref:
+    tag: external-secrets-0.9.5
+  provider: generic
