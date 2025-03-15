@@ -1,0 +1,8 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: external-secrets
+  namespace: external-secrets
+spec:
+  url: oci://ghcr.io/external-secrets/helm-charts/external-secrets
+  interval: 5m
