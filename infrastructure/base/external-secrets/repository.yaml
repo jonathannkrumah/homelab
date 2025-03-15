@@ -1,13 +1,48 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
   name: external-secrets
   namespace: external-secrets
 spec:
   interval: 1h
-  url: oci://ghcr.io/external-secrets/charts
-  ref:
-    tag: external-secrets-0.9.5
-  provider: generic
-  secretRef:
-    name: ghcr-auth 
+  timeout: 15m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  chart:
+    spec:
+      chart: external-secrets
+      version: "0.14.4"
+      sourceRef:
+        kind: OCIRepository
+        name: external-secrets
+        namespace: external-secrets
+  values:
+    installCRDs: true
+    serviceAccount:
+      create: true
+      name: "external-secrets"
+    webhook:
+      port: 9443
+      # Disabling webhook initially to rule out cert-manager issues
+      create: false
+    certController:
+      # Disabling cert controller initially
+      enabled: false
+    # Ensure we have reasonable resource requests
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
+    # Add dependency wait if cert-manager is needed
+    podSecurityContext:
+      fsGroup: 1001
+    securityContext:
+      runAsUser: 1001
+      runAsNonRoot: true
