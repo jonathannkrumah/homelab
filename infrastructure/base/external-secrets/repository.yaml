@@ -9,3 +9,5 @@ spec:
   ref:
     tag: external-secrets-0.9.5
   provider: generic
+  secretRef:
+    name: ghcr-auth 
