@@ -1,0 +1,8 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: n8n-repo
+  namespace: n8ns
+spec:
+  url: https://helm.n8n.io/
+  interval: 10m

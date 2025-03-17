@@ -2,3 +2,4 @@ resources:
   - "./nginx"
   - "./n8n"
   - "./external-secrets"
+  - "./n8ns"
