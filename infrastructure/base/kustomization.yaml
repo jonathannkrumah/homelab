@@ -3,3 +3,4 @@ resources:
   - "./n8n"
   - "./external-secrets"
   - "./n8ns"
+  - "./monitoring-system"
