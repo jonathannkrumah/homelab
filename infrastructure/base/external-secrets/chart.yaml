@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmChart
 metadata:
   name: external-secrets-chart
-  namespace: external-secrets
+  namespace: external-secret
 spec:
   chart: external-secrets
   reconcileStrategy: ChartVersion
