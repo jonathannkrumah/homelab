@@ -1,8 +1,8 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: n8n-repo
-  namespace: n8ns
+  name: n8ns
+  namespace: flux-system
 spec:
-  url: https://helm.n8n.io/
   interval: 10m
+  url: oci://ghcr.io/bjw-s/helm/
