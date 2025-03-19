@@ -9,7 +9,7 @@ spec:
     spec:
       chart: external-secrets
       version: "0.9.11"
-      SourceRed:
+      SourceRef:
         kind: HelmRepository
         name: external-secrets
         namespace: flux-system
