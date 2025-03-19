@@ -1,7 +1,7 @@
 resources:
   - ./nginx
   - ./whoami
-  #- ./external-secrets
+  - ./external-secrets
   #- ./n8n
   #- ./n8ns
   #- ./monitoring-system

@@ -4,14 +4,14 @@ metadata:
   name: external-secrets
   namespace: external-secrets
 spec:
-  interval: 5m
   chart:
     spec:
       chart: external-secrets
-      version: "0.9.11"
+      version: 0.9.11  # or latest stable
       sourceRef:
         kind: HelmRepository
         name: external-secrets
-        namespace: flux-system
+        namespace: flux-system  # matches your HelmRepository namespace
+  interval: 5m
   values:
-    installCRDs: true  # Important: Install Custom Resources
+    installCRDs: true
