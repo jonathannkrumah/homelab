@@ -4,3 +4,4 @@ resources:
   - ./external-secrets
   - ./n8ns
   - ./monitoring-system
+  - ./whoami
