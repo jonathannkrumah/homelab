@@ -1,0 +1,37 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: n8n-storage
+provisioner: kubernetes.io/no-provisioner  # Use no-provisioner for static volumes
+volumeBindingMode: immediate 
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: n8n-pv
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: n8n-storage
+  hostPath:
+    path: /mnt/data/n8n  # Ensure this path exists on the node
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: n8n
+  namespace: n8ns  # Adjust if using a different namespace
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: n8n-pv
+  storageClassName: n8n-storage
