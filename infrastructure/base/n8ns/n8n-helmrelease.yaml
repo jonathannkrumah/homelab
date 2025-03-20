@@ -11,11 +11,11 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: n8ns
-        namespace: n8ns
+        namespace: flux-system
   interval: 5m
   values:
     service:
-      type: ClusterIP
+      type: loadbalancer 
     ingress:
       enabled: true
       hosts:
