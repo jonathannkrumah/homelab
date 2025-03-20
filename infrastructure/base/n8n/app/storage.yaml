@@ -3,7 +3,7 @@ kind: StorageClass
 metadata:
   name: n8n-storage
 provisioner: kubernetes.io/no-provisioner  # Use no-provisioner for static volumes
-volumeBindingMode: immediate 
+volumeBindingMode: Immediate 
 
 ---
 apiVersion: v1
