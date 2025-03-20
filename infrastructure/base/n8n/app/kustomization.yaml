@@ -1,5 +1,5 @@
 resources:
-  - "Helmrepository"
+  - "helmrepository.yaml"
   - "storage.yaml"
   - "helmrelease.yaml"
   - "externalsecret.yaml"
