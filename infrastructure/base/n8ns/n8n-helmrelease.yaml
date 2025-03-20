@@ -10,7 +10,7 @@ spec:
       version: "0.12.0"  # Replace with the desired version
       sourceRef:
         kind: HelmRepository
-        name: n8ns
+        name: bjw-s
         namespace: flux-system
   interval: 5m
   values:
