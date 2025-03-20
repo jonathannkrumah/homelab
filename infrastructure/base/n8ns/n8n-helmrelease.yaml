@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: n8ns
+  name: n8n
   namespace: n8ns
 spec:
   chart:
@@ -10,7 +10,7 @@ spec:
       version: "0.12.0"  # Replace with the desired version
       sourceRef:
         kind: HelmRepository
-        name: n8ns
+        name: n8n
         namespace: flux-system
   interval: 5m
   values:
