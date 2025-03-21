@@ -4,4 +4,5 @@ resources:
   - "storage.yaml"
   - "helmrelease.yaml"
   - "externalsecret.yaml"
+  - "clustersecretstore.yaml"
 
