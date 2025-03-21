@@ -1,0 +1,5 @@
+# n8ns-namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: n8ns
