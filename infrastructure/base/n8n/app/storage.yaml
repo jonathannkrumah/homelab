@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: n8n
+  name: n8n-pvc
   namespace: n8ns  # Adjust if using a different namespace
 spec:
   accessModes:
