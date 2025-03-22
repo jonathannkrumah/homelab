@@ -9,7 +9,7 @@ volumeBindingMode: Immediate
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: n8n-pv
+  name: n8n-pv-1
 spec:
   capacity:
     storage: 5Gi
