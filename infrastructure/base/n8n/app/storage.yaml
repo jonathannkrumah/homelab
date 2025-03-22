@@ -9,7 +9,7 @@ volumeBindingMode: Immediate
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: n8n-pv-1
+  name: n8n-pv-2
 spec:
   capacity:
     storage: 10Gi
@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: n8n-pvc-1
+  name: n8n-pvc-2
   namespace: n8ns  # Adjust if using a different namespace
 spec:
   accessModes:
@@ -33,5 +33,5 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  volumeName: n8n-pv-1  # ✅ Fixed: Matches PV name
+  volumeName: n8n-pv-2  # ✅ Fixed: Matches PV name
   storageClassName: n8n-storage
