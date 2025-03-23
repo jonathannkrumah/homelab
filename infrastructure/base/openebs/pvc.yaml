@@ -6,7 +6,7 @@ provisioner: openebs.io/local
 parameters:
   basePath: /var/openebs/local
 allowVolumeExpansion: true
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 
 ---
