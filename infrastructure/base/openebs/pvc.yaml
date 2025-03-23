@@ -13,7 +13,7 @@ volumeBindingMode: Immediate
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: openebs-hostpath-pv
+  name: openebs-hostpath-pv-1
 spec:
   capacity:
     storage: 10Gi
