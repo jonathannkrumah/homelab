@@ -3,6 +3,8 @@ resources:
   - ./whoami
   - ./external-secrets
   - ./n8n/app
+  - ./openebs
+  #- ./homepage
   #- ./n8n
   #- ./monitoring-system
   
