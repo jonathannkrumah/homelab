@@ -4,5 +4,6 @@ resources:
   - "storage.yaml"
   - "helmrelease.yaml"
   - "externalsecret.yaml"
+  - "onepassword-credentials.yaml"
   - "clustersecretstore.yaml"
 
