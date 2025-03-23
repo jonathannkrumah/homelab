@@ -7,7 +7,7 @@ parameters:
   basePath: /var/openebs/local
 allowVolumeExpansion: true
 reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
+volumeBindingMode: Immediate
 
 ---
 apiVersion: v1
