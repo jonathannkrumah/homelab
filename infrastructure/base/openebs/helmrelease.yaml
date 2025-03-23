@@ -13,7 +13,7 @@ spec:
       interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: openebs-charts
+        name: openebs
         namespace: flux-system
   values:
     localpv-provisioner:
