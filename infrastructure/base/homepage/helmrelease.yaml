@@ -76,7 +76,7 @@ spec:
         enabled: true
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.jonatech.online
+          external-dns.alpha.kubernetes.io/target: homepage.jonatech.online
         hosts:
           - host: &host homepage.jonatech.online
             paths:
@@ -86,7 +86,7 @@ spec:
                   port: *port
         tls:
           - hosts:
-              - *host
+              - homepage.jonatech.online
     persistence:
       config:
         enabled: true
