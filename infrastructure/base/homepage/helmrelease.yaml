@@ -74,7 +74,7 @@ spec:
     ingress:
       app:
         enabled: true
-        className: external
+        className: nginx
         annotations:
           external-dns.alpha.kubernetes.io/target: homepage.jonatech.online
         hosts:
