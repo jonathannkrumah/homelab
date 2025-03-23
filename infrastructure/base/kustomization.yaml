@@ -2,7 +2,7 @@ resources:
   - ./nginx
   - ./whoami
   - ./external-secrets
-  - ./n8n/app
+  #- ./n8n/app
   - ./openebs
   #- ./homepage
   #- ./n8n
