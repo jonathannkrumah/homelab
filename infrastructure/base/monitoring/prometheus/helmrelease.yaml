@@ -35,11 +35,11 @@ spec:
             10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
         pathType: Prefix
         hosts:
-          - &host prom.${SECRET_DOMAIN_0}
+          - prom.example.com  # Replace with actual domain
         tls:
           - hosts:
-              - *host
-            secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+              - prom.example.com  # Replace with actual domain
+            secretName: example-com-prod-tls  # Replace accordingly
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -52,15 +52,15 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - ${CONFIG_VYOS_IP_ADDRESS}:9100
-                  - ${CONFIG_NFS_SERVER_IP_ADDRESS}:9100
+                  - 192.168.1.10:9100  # Replace with actual IP
+                  - 192.168.1.20:9100  # Replace with actual IP
           - job_name: external-smartctl-exporter
             scrape_interval: 1m
             scrape_timeout: 10s
             honor_timestamps: true
             static_configs:
               - targets:
-                  - ${CONFIG_NFS_SERVER_IP_ADDRESS}:9633
+                  - 192.168.1.30:9633  # Replace with actual IP
                   - 192.168.50.49:9633
     alertmanager:
       config:
@@ -85,7 +85,7 @@ spec:
           - name: "null"
           - name: discord
             discord_configs:
-              - webhook_url: ${SECRET_DISCORD_PROMETHEUS_WH_URL}
+              - webhook_url: "https://discord.com/api/webhooks/your-webhook-url"  # Replace with actual webhook
                 title: |-
                   [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
                 message: |-
