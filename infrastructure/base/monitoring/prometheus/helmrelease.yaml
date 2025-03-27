@@ -35,11 +35,11 @@ spec:
             10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
         pathType: Prefix
         hosts:
-          - prom.example.com  # Replace with actual domain
+          - prometheus.jonatech.online  # Replace with actual domain
         tls:
           - hosts:
-              - prom.example.com  # Replace with actual domain
-            secretName: example-com-prod-tls  # Replace accordingly
+              - prometheus.jonatech.online  # Replace with actual domain
+            secretName: prometheus.jonatech.online-tls  # Replace accordingly
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -85,7 +85,7 @@ spec:
           - name: "null"
           - name: discord
             discord_configs:
-              - webhook_url: "https://discord.com/api/webhooks/your-webhook-url"  # Replace with actual webhook
+              - webhook_url: "https://discord.com/api/webhooks/https://discord.com/api/webhooks/1354942635986391181/dpTGR0HA40s4eGtjV7AoIKbsqoPFHIzjZcBvKVJO-aEXwgoWgPi0NFfJ4UJ6Uay1BQLY"  # Replace with actual webhook
                 title: |-
                   [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
                 message: |-
