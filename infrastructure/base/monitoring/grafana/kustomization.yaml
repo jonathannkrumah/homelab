@@ -1,0 +1,4 @@
+resources:
+  - "repository.yaml"
+  - "secret.sops.yaml"
+  - "helmrelease.yaml"

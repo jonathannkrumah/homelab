@@ -5,6 +5,7 @@ resources:
   #- ./n8n/app
   - ./openebs
   - ./homepage
+  - ./monitoring 
   #- ./n8n
   #- ./monitoring-system
   
