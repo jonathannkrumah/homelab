@@ -52,8 +52,8 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets:
-                  - 192.168.1.10:9200  # Replace with actual IP
-                  - 192.168.1.20:9200  # Replace with actual IP
+                  - 192.168.1.10:9300  # Replace with actual IP
+                  - 192.168.1.20:9300  # Replace with actual IP
           - job_name: external-smartctl-exporter
             scrape_interval: 1m
             scrape_timeout: 10s
