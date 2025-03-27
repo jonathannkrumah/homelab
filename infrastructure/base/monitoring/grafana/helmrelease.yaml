@@ -44,38 +44,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
-          - name: ceph
-            orgId: 1
-            folder: Ceph
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/ceph
-          - name: flux
-            orgId: 1
-            folder: Flux
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/flux
-          - name: kubernetes
-            orgId: 1
-            folder: Kubernetes
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/kubernetes
-          - name: nginx
-            orgId: 1
-            folder: Nginx
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/nginx
 
     datasources:
       datasources.yaml:
@@ -83,7 +51,7 @@ spec:
         datasources:
           - name: Prometheus
             type: prometheus
-            isDefault: true
+            isDefault: true  # ✅ Only one default datasource
             url: http://kube-prometheus-stack-prometheus.monitoring-system.svc.cluster.local:9090
             access: proxy
           - name: Loki
@@ -91,98 +59,6 @@ spec:
             url: http://loki-gateway.monitoring-system.svc.cluster.local
             jsonData:
               maxLines: 250
-
-    dashboards:
-      default:
-        cloudflared:
-          gnetId: 17457  # https://grafana.com/grafana/dashboards/17457?tab=revisions
-          revision: 6
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-        minio:
-          gnetId: 13502  # https://grafana.com/grafana/dashboards/13502?tab=revisions
-          revision: 24
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-        node-exporter-full:
-          gnetId: 1860  # https://grafana.com/grafana/dashboards/1860?tab=revisions
-          revision: 31
-          datasource: Prometheus
-        smart:
-          url: https://raw.githubusercontent.com/blesswinsamuel/grafana-dashboards/main/dashboards/dist/smartctl.json
-          datasource: Prometheus
-        gatus:
-          url: https://raw.githubusercontent.com/TwiN/gatus/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json
-          datasource: Prometheus
-      ceph:
-        ceph-cluster:
-          gnetId: 2842  # https://grafana.com/grafana/dashboards/2842?tab=revisions
-          revision: 17
-          datasource: Prometheus
-        ceph-osd:
-          gnetId: 5336  # https://grafana.com/grafana/dashboards/5336?tab=revisions
-          revision: 9
-          datasource: Prometheus
-        ceph-pools:
-          gnetId: 5342  # https://grafana.com/grafana/dashboards/5342?tab=revisions
-          revision: 9
-          datasource: Prometheus
-      flux:
-        flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
-          datasource: Prometheus
-        flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
-          datasource: Prometheus
-        flux-logs:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
-          datasource: Prometheus
-      kubernetes:
-        kubernetes-api-server:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
-          datasource: Prometheus
-        kubernetes-coredns:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
-          datasource: Prometheus
-        kubernetes-global:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
-          datasource: Prometheus
-        kubernetes-namespaces:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
-          datasource: Prometheus
-        kubernetes-nodes:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
-          datasource: Prometheus
-        kubernetes-pods:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
-          datasource: Prometheus
-      nginx:
-        nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Prometheus
-
-    sidecar:
-      dashboards:
-        enabled: true
-        label: grafana_dashboard
-        labelValue: ""
-        folderAnnotation: grafana_folder
-        searchNamespace: ALL
-        provider:
-          disableDelete: true
-          foldersFromFilesStructure: true
-      datasources:
-        enabled: true
-        labelValue: ""
-        searchNamespace: ALL
-
-    plugins:
-      - grafana-piechart-panel
 
     ingress:
       enabled: true
@@ -192,17 +68,19 @@ spec:
           10.244.0.0/16,10.10.10.0/24,192.168.50.0/24,192.168.10.0/24,192.168.200.0/24
       pathType: Prefix
       hosts:
-        - &host dashboard.${SECRET_DOMAIN_0}
+        - grafana.jonatech.online  # ✅ Replaced variable with a valid domain
       tls:
         - hosts:
-            - *host
-          secretName: ${SECRET_DOMAIN_0//./-}-prod-tls
+            - grafana.jonatech.online
+          secretName: grafana.jonatech.online-tls
+
     resources:
       requests:
-        cpu: 10m
-        memory: 94Mi
+        cpu: 100m
+        memory: 256Mi
       limits:
-        memory: 366Mi
+        memory: 512Mi  # ✅ Increased to prevent crashes
+
     admin:
       existingSecret: grafana-secret
       userKey: gf_security_admin_user
