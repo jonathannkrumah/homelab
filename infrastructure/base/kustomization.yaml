@@ -6,6 +6,7 @@ resources:
   - ./openebs
   - ./homepage
   - ./monitoring 
+  - ./pihole
   #- ./n8n
   #- ./monitoring-system
   
