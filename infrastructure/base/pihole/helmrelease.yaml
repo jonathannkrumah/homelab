@@ -1,92 +1,45 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: pihole
-  namespace: pihole
+  name: &app external-dns-pihole
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
-      # renovate: registryUrl=https://mojo2600.github.io/pihole-kubernetes
-      chart: pihole
-      version: 2.29.1
+      chart: external-dns
+      version: 1.16.0
       sourceRef:
         kind: HelmRepository
-        name: mojo2600
+        name: external-dns
         namespace: flux-system
-      interval: 5m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
   values:
-    monitoring:
-      podMonitor:
-        enabled: true
-      sidecar:
-        enabled: true
-        image:
-          pullPolicy: "IfNotPresent"
-          repository: "ekofr/pihole-exporter"
-          tag: "v1.0.1"
-          port: 9617
-        resources:
-          limits:
-            memory: "128Mi"
-    doh:
+    fullnameOverride: *app
+    provider: pihole
+    env:
+      - name: &name EXTERNAL_DNS_PIHOLE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: &secret external-dns-pihole
+            key: *name
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *secret
+    extraArgs:
+      - --pihole-server=http://10.0.0.254
+      - --ignore-ingress-tls-spec
+      - --ingress-class=internal
+    policy: sync
+    sources: ["ingress", "service"]
+    triggerLoopOnEvent: true
+    domainFilters: ["rafaribe.com"]
+    serviceMonitor:
       enabled: true
-      name: "cloudflared"
-      repository: "crazymax/cloudflared"
-      tag: "2021.5.7"
-    serviceDhcp:
-      enabled: false
-    serviceDns:
-      type: LoadBalancer
-      externalTrafficPolicy: Local
-      loadBalancerIP: ${SVC_PIHOLE_IP}
-      annotations:
-        metallb.universe.tf/allow-shared-ip: pihole-svc
-    serviceWeb:
-      type: LoadBalancer
-      externalTrafficPolicy: Local
-      loadBalancerIP: ${SVC_PIHOLE_IP}
-      annotations:
-        metallb.universe.tf/allow-shared-ip: pihole-svc
-    virtualHost: "pihole.k.${SECRET_DOMAIN}"
-    ingress:
-      enabled: true
-      ingressClassName: nginx-internal
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/auth-signin: "https://auth.${SECRET_DOMAIN}"
-        nginx.ingress.kubernetes.io/auth-url: "http://authelia.kube-system.svc.cluster.local/api/authz/auth-request"
-      path: /
-      hosts:
-        - "pihole.k.${SECRET_DOMAIN}"
-      tls:
-        - secretName: pihole2-cert
-          hosts:
-            - "pihole.k.${SECRET_DOMAIN}"
-    persistentVolumeClaim:
-      enabled: false
-    tolerations:
-      - key: "arm"
-        operator: "Exists"
-    replicaCount: 1
-#    topologySpreadConstraints:
-#      - maxSkew: 1
-#        topologyKey: kubernetes.io/arch
-#        whenUnsatisfiable: DoNotSchedule
-#        labelSelector:
-#          matchLabels:
-#            release: pihole
-#      - maxSkew: 1
-#        topologyKey: kubernetes.io/hostname
-#        whenUnsatisfiable: DoNotSchedule
-#        labelSelector:
-#          matchLabels:
-#            release: pihole
-    adminPassword: ${SECRET_PIHOLE_ADMIN_PASSWORD}
-    extraEnvVars:
-      RATE_LIMIT: "0/0"
-  valuesFrom:
-    - kind: Secret
-      name: pihole-helm-values
