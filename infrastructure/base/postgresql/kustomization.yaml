@@ -1,0 +1,6 @@
+resources:
+  - "namespace.yaml"
+  - "repository.yaml"
+  - "pvc.yaml"
+  - "postgresql-secret.yaml"
+  - "helmrelease.yaml"
