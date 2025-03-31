@@ -8,6 +8,7 @@ resources:
   - ./monitoring 
   - ./pihole
   - ./wallabag
+  - ./linkding
   #- ./n8n
   #- ./monitoring-system
   
