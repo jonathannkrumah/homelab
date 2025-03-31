@@ -7,6 +7,7 @@ resources:
   - ./homepage
   - ./monitoring 
   - ./pihole
+  - ./wallabag
   #- ./n8n
   #- ./monitoring-system
   
