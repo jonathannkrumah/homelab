@@ -8,6 +8,9 @@ resources:
   - ./monitoring 
   - ./pihole
   - ./wallabag
+
+patchesStrategicMerge:
+  - remove-duplicate-helmrepository.yaml
   #- ./n8n
   #- ./monitoring-system
   
