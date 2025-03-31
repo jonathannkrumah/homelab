@@ -17,5 +17,12 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi  # Adjust size as needed
+      storage: 10Gi
   storageClassName: openebs-linkding
+  volumeMode: Filesystem
+  selector:
+    matchExpressions:
+      - key: kubernetes.io/hostname
+        operator: In
+        values:
+          - ip-10-0-1-132.ec2.internal
