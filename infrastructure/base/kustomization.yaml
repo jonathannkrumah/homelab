@@ -9,6 +9,7 @@ resources:
   - ./pihole
   - ./wallabag
   - ./linkding
+  - ./postgresql 
   #- ./n8n
   #- ./monitoring-system
   
