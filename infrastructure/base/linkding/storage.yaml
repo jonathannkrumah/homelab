@@ -2,27 +2,37 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: openebs-linkding
-provisioner: openebs.io/local
+provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: linkding
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: openebs-linkding
+  hostPath:
+    path: /mnt/data/linkding  # Ensure this path exists on the node
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: linkding
-  namespace: linkding
+  namespace: linkding  # Adjust if using a different namespace
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi
+  volumeName: linkding  # ✅ Fixed: Matches PV name
   storageClassName: openebs-linkding
-  volumeMode: Filesystem
-  selector:
-    matchExpressions:
-      - key: kubernetes.io/hostname
-        operator: In
-        values:
-          - ip-10-0-1-132.ec2.internal
