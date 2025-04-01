@@ -11,9 +11,8 @@ spec:
       version: 16.6.0
       sourceRef:
         kind: HelmRepository
-        name: postgresql-chart
+        name: bitnami-oci
         namespace: flux-system
-      interval: 5m
   values:
     auth:
       enablePostgresUser: false
