@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   chart: postgresql
-  version: 16.6.0
+  version: 16.6.x
   interval: 5m
   reconcileStrategy: ChartVersion
   sourceRef:

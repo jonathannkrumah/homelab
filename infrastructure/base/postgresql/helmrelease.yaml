@@ -10,8 +10,9 @@ spec:
       chart: postgresql
       version: 16.6.0
       sourceRef:
-        kind: HelmChart
-        name: postgresql-chart
+        kind: OCIRepository
+        name: bitnami-oci
+        namespace: flux-system
       interval: 5m
   values:
     auth:
