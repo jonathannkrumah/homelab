@@ -1,0 +1,13 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmChart
+metadata:
+  name: postgresql-chart
+  namespace: flux-system
+spec:
+  chart: postgresql
+  version: 16.6.0
+  interval: 5m
+  reconcileStrategy: ChartVersion
+  sourceRef:
+    kind: OCIRepository
+    name: bitnami-oci
