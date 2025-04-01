@@ -10,7 +10,7 @@ spec:
       chart: postgresql
       version: 16.6.0
       sourceRef:
-        kind: HelmChart
+        kind: HelmRepository
         name: postgresql-chart
         namespace: flux-system
       interval: 5m
