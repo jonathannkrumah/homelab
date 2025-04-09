@@ -52,4 +52,12 @@ spec:
             - localhost
           initialDelaySeconds: 10
           periodSeconds: 5
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
 
