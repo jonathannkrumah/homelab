@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: bankapp-namespace
+  name: bankapp
   labels:
-    name: bankapp-namespace
+    name: bankapp
 

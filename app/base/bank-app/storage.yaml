@@ -10,8 +10,8 @@ volumeBindingMode: Immediate
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: bankapp-pv
-  namespace: bankapp-namespace
+  name: bankapp-pv-1
+  namespace: bankapp
   labels:
     app: bankapp
 spec:
@@ -28,8 +28,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bankapp-pvc
-  namespace: bankapp-namespace
+  name: bankapp-pvc-1
+  namespace: bankapp
   labels:
     app: bankapp
 spec:
