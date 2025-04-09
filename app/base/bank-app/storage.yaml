@@ -1,0 +1,42 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: bankapp
+provisioner: kubernetes.io/no-provisioner
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bankapp-pv
+  namespace: bankapp-namespace
+  labels:
+    app: bankapp
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bankapp
+  hostPath:
+    path: "/tmp/bankapp-mysql" # This will be stored on the host machine running KIND
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bankapp-pvc
+  namespace: bankapp-namespace
+  labels:
+    app: bankapp
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: bankapp
+

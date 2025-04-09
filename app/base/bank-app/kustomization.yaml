@@ -1,0 +1,11 @@
+resources:
+  - "namespace.yaml"
+  - "storage.yaml"
+  - "configmap.yaml"
+  - "secrets.yaml"
+  - "mysqlDeployment.yaml"
+  - "mysqlService.yaml"
+  - "deployement.yaml"
+  - "service.yaml" 
+  - "ingress.yaml" 
+  
