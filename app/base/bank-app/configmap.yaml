@@ -7,4 +7,18 @@ data:
   MYSQL_DATABASE: BankDB
   SPRING_DATASOURCE_URL: jdbc:mysql://mysql-svc.bankapp.svc.cluster.local:3306/BankDB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
   SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: $MYSQL_ROOT_PASSWORD  # Use valueFrom secret in production
+
+---
+# MySQL ConfigMap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  namespace: bankapp
+data:
+  my.cnf: |
+    [mysqld]
+    bind-address = 0.0.0.0
 

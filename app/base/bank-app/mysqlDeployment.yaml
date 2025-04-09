@@ -1,3 +1,5 @@
+# MySQL Deployment
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,53 +18,59 @@ spec:
         app: mysql
     spec:
       containers:
-      - name: mysql
-        image: mysql:latest
-        ports:
-        - containerPort: 3306
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: MYSQL_ROOT_PASSWORD
-        - name: MYSQL_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              name: bankapp-config
-              key: MYSQL_DATABASE
-        resources:
+        - name: mysql
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: bankapp
+                  key: MYSQL_DATABASE
+            - name: MYSQL_ROOT_HOST
+              value: "%"  # Allow root access from any host
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+            - name: mysql-config
+              mountPath: /etc/mysql/conf.d/my.cnf
+              subPath: my.cnf
+          resources:
           requests:
-            memory: "768Mi"
-            cpu: "512m"
+          memory: "768Mi"
+          cpu: "512m"
           limits:
-            memory: "1Gi"
-            cpu: "1"
-        volumeMounts:
-        - name: mysql-data
-          mountPath: /var/lib/mysql
+              memory: "1Gi"
+              cpu: "1"  # Equivalent to 1000m (1 core)
+          livenessProbe:
+            exec:
+              command:
+                - mysqladmin
+                - ping
+                - -h
+                - localhost
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - mysqladmin
+                - ping
+                - -h
+                - localhost
+            initialDelaySeconds: 10
+            periodSeconds: 5
       volumes:
-      - name: mysql-data
-        persistentVolumeClaim:
-          claimName: bankapp-pvc-1
-        livenessProbe:
-          exec:
-            command:
-            - mysqladmin
-            - ping
-            - -h
-            - localhost
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          exec:
-            command:
-            - mysqladmin
-            - ping
-            - -h
-            - localhost
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        
-
-
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: bankapp-pvc-1
+        - name: mysql-config
+          configMap:
+            name: mysql-config
+      
