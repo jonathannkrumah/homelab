@@ -31,9 +31,20 @@ spec:
             configMapKeyRef:
               name: bankapp-config
               key: MYSQL_DATABASE
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-data
+        persistentVolumeClaim:
+          claimName: bankapp-pvc-1
         livenessProbe:
           exec:
             command:
@@ -52,12 +63,6 @@ spec:
             - localhost
           initialDelaySeconds: 10
           periodSeconds: 5
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
+        
 
 
