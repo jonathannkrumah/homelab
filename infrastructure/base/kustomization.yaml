@@ -12,6 +12,7 @@ resources:
   - ./postgresql 
   - ./cloudnative-pg
   - ./pgadmin 
+  - ./1password 
   #- ./n8n
   #- ./monitoring-system
   
