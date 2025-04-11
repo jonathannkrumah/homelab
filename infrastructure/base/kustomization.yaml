@@ -11,6 +11,7 @@ resources:
   - ./linkding
   - ./postgresql 
   - ./cloudnative-pg
+  - ./pgadmin 
   #- ./n8n
   #- ./monitoring-system
   
