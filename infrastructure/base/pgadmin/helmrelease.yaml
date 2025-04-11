@@ -4,18 +4,36 @@ metadata:
   name: pgadmin
   namespace: pgadmin
 spec:
+  interval: 5m  # Required field - sets how often Flux checks for updates
   chart:
     spec:
       chart: pgadmin4
-      version: "1.10.0"  # Check for latest version
+      version: "1.10.0"  # Verify latest version at https://helm.runix.net
       sourceRef:
         kind: HelmRepository
         name: runix
         namespace: flux-system
+  install:
+    createNamespace: true  # Creates pgadmin namespace if it doesn't exist
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   values:
     env:
-      email: "{{ .ADMIN_EMAIL }}"
-      password: "{{ .POSTGRES_SUPER_PASS }}"
+      email: "{{ .ADMIN_EMAIL }}"  # Will be pulled from your ExternalSecret
+      password: "{{ .POSTGRES_SUPER_PASS }}"  # Will be pulled from your ExternalSecret
     persistence:
       enabled: true
       size: 1Gi
+    service:
+      type: ClusterIP
+      port: 80
+    ingress:
+      enabled: true
+      hosts:
+        - host: pgadmin.zinn.ca
+          paths:
+            - path: /
+      tls: []
