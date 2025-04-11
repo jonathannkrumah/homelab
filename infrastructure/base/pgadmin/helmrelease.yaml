@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: "3.7.3"  # Use latest version from search results
+      version: 3.7.2 # Use latest version from search results
       sourceRef:
         kind: HelmRepository
         name: bjw-s
