@@ -10,6 +10,7 @@ resources:
   - ./wallabag
   - ./linkding
   - ./postgresql 
+  - ./cloudnative-pg
   #- ./n8n
   #- ./monitoring-system
   

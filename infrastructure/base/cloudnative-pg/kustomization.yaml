@@ -1,0 +1,6 @@
+resources:
+  - "namespace.yaml"
+  - "externalsecret.yaml"
+  - "repository.yaml"
+  - "helmrelease.yaml"
+
