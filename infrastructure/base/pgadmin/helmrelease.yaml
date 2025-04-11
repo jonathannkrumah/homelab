@@ -45,7 +45,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "pgadmin-sc"
+        storageClass: "n8n-storage"
         accessMode: ReadWriteOnce
         size: 1Gi
         mountPath: /var/lib/pgadmin
