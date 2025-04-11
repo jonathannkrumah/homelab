@@ -1,5 +1,6 @@
 resources:
   - "namespace.yaml"
+  - "storage.yaml"
 #- "repository.yaml"
   - "secret.yaml" 
   - "helmrelease.yaml"
