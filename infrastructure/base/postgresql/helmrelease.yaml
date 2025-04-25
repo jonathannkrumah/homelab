@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   values:
     auth:
-      enablePostgresUser: false
+      enablePostgresUser: true 
       username: admin
       existingSecret: postgresql-secrets
     primary:
