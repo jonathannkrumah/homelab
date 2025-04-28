@@ -18,6 +18,9 @@ spec:
       enablePostgresUser: true 
       username: admin
       existingSecret: postgresql-secrets
+      secretKeys:
+        adminPasswordKey: password
+        postgresPasswordKey: password  # Add this line
     primary:
       persistence:
         enabled: true
@@ -28,12 +31,9 @@ spec:
           cpu: 25m
         limits:
           memory: 200Mi
-      # Add security context to fix permissions
       securityContext:
         runAsUser: 1001
         fsGroup: 1001
-    # Enable volume permissions init container
     volumePermissions:
       enabled: true
-    # Increase timeout for installation
     timeout: 600s
