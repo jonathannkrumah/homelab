@@ -13,6 +13,7 @@ resources:
   - ./cloudnative-pg
   - ./pgadmin 
   - ./1password 
+  - ./argocd
   #- ./n8n
   #- ./monitoring-system
   
